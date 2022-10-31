@@ -8,3 +8,4 @@ for _ in range(int(input())):
         if index == 7:
             print(i+1)
             break
+# took 10 min
