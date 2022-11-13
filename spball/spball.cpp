@@ -1,40 +1,33 @@
 #include <iostream>
-#include <unordered_map>
+#include <map>
 using namespace std;
-
-long fact(long n) {
-	long f = 1;
-	for (int i=1; i<=n ; i++) {
-		f *= i;
-	}
-	return f;
-}
 
 int main() {
 	int t;
 	cin >> t;
 
-	unordered_map<int, int> facts;
+	map<unsigned long long int, unsigned long long int> facts;
+	facts[0] = 1;
+	facts[1] = 1;
 
 	while (t--) {
-		long n, sum=0;
+		unsigned long long int n, sum=0;
 		cin >> n;
 
 		while (n--) {
-			long x;
+			unsigned long long int x;
 			cin >> x;
 
 			if (facts.find(x) == facts.end()) {
-
-				for (int i=1; i<=x ; i++) {
+				for (unsigned long long int i=2; i<=x ; ++i) {
 					if (facts.find(i) == facts.end()) {
-						facts[i] = fact(i);
+						facts[i] = facts[i-1] * i;
 					}
 				}
 			}
 			sum += facts[x];
-
 		}
+		sum %= 1000000007;
 		cout << sum << endl;
 	}
 }

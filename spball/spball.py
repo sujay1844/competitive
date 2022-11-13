@@ -1,6 +1,6 @@
-import math
-
-facts = {}
+import sys
+sys.set_int_max_str_digits(10**7)
+facts = {0:1, 1:1}
 
 for _ in range(int(input())):
 
@@ -10,15 +10,12 @@ for _ in range(int(input())):
     for x in input().split():
         n = int(x)
 
-        try:
-            sum += facts[n]
+        if n not in facts:
+            for i in range(1, n+1):
+                if i not in facts:
+                    facts[i] = facts[i-1] * i
 
-        except KeyError:
+        sum += facts[n]
 
-            for i in range(n, 0, -1):
-                if i in facts: break
-                else: facts[i] = math.factorial(i)
-
-            sum += facts[n]
-
-    print(sum % 1_000_000_007)
+    sum = sum % (10**9+7)
+    print(sum)
